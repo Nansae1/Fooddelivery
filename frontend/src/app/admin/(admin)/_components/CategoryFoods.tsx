@@ -10,7 +10,7 @@ export type Food = {
   price: number;
   image: string;
   ingredients: string;
-  categoryIds: {
+  categoryId: {
     _id: string;
     name: string;
   }[];
@@ -48,6 +48,7 @@ export const CategoryFoods = ({
             price={food.price}
             ingredients={food.ingredients}
             image={food.image}
+            categoryName={categoryName}
           />
         ))}
       </div>

@@ -6,6 +6,10 @@ import { Card } from "@/components/ui/card";
 import { Category } from "./_components/CreateFoodDialog";
 import { api } from "@/lib/axios";
 import { CategoryFoods } from "./_components/CategoryFoods";
+import { icons, PlusIcon } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { CreateCategoryDialog } from "./_components/CreateCategoryDialog";
 
 const AdminPage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -36,6 +40,7 @@ const AdminPage = () => {
               {category.name}
             </Button>
           ))}
+          <CreateCategoryDialog />
         </div>
       </Card>
 

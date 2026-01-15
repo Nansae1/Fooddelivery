@@ -11,12 +11,12 @@ type FoodSectionProps = {
 };
 
 export interface FoodItem {
-  _id: number;
+  _id: string;
   name: string;
-  price: string;
+  price: number;
   ingredients: string;
   image: string;
-  categoryId: number;
+  categoryId: { _id: string; name: string }[];
 }
 export const MenuSection = ({ categoryId, categoryName }: FoodSectionProps) => {
   const { addToCart, setIsCartOpen, getTotalItems } = useCart();
