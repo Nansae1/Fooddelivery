@@ -39,7 +39,7 @@ export const EditFood = ({
   categoryName,
 }: EditFoodProps) => {
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>(image);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
