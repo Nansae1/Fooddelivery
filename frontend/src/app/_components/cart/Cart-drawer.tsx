@@ -2,8 +2,8 @@
 
 import { Sheet, SheetContent, SheetHeader } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CartHeader } from "../cart/Cart-header";
-import { CartContent } from "../cart/Cart-Content";
+import { CartHeader } from "./Cart-header";
+import { CartContent } from "./Cart-Content";
 import { useCart } from "@/app/context/Cart-context";
 
 export function CartDrawer() {
@@ -22,22 +22,22 @@ export function CartDrawer() {
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-      <SheetContent className="w-full sm:max-w-lg p-0 flex flex-col">
+      <SheetContent className="w-full sm:max-w-lg p-0 flex flex-col bg-[#404040]">
         <SheetHeader className="px-6 py-4 border-b">
           <CartHeader onClose={() => setIsCartOpen(false)} />
         </SheetHeader>
 
         <Tabs defaultValue="cart" className="flex-1 flex flex-col">
-          <TabsList className="w-full rounded-none border-b bg-transparent p-0">
+          <TabsList className="w-full rounded-full border-b bg-transparent p-0">
             <TabsTrigger
               value="cart"
-              className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3"
+              className="flex-1 rounded-full data-[state=active]:bg-red-500 data-[state=active]:text-white py-3"
             >
               Cart
             </TabsTrigger>
             <TabsTrigger
               value="order"
-              className="flex-1 rounded-none data-[state=active]:bg-red-500 data-[state=active]:text-white py-3"
+              className="flex-1 rounded-full data-[state=active]:bg-red-500 data-[state=active]:text-white py-3"
             >
               Order
             </TabsTrigger>
