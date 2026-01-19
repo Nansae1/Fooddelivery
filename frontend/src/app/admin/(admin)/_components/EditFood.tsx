@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { DialogClose } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -28,6 +29,7 @@ export type EditFoodProps = {
   image: string;
   id: string;
   categoryName: string;
+  categoryId: string;
 };
 
 export const EditFood = ({
@@ -37,6 +39,7 @@ export const EditFood = ({
   ingredients,
   image,
   categoryName,
+  categoryId,
 }: EditFoodProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>(image);
@@ -66,7 +69,7 @@ export const EditFood = ({
       ingredients: ingredients,
       image: image,
       category: categoryName,
-      categoryId: "",
+      categoryId: categoryId,
     },
   });
 
@@ -121,9 +124,13 @@ export const EditFood = ({
       price: values.price,
       ingredients: values.ingredients,
       image: values.image,
-      categoryId: [values.categoryId],
+      categoryId: values.categoryId,
     });
   };
+
+  const error = form.formState.errors;
+
+  console.log("errors", error);
   return (
     <Form {...form}>
       <form

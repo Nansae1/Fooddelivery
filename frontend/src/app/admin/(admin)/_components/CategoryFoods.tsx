@@ -49,6 +49,7 @@ export const CategoryFoods = ({
             ingredients={food.ingredients}
             image={food.image}
             categoryName={categoryName}
+            categoryId={categoryId}
           />
         ))}
       </div>

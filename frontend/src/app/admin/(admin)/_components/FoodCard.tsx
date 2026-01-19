@@ -11,6 +11,7 @@ export type FoodCardProps = {
   ingredients: string;
   image: string;
   categoryName: string;
+  categoryId: string;
 };
 
 export function FoodCard({
@@ -20,6 +21,7 @@ export function FoodCard({
   ingredients,
   image,
   categoryName,
+  categoryId,
 }: FoodCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow p-4">
@@ -43,6 +45,7 @@ export function FoodCard({
                 image={image}
                 id={id}
                 categoryName={categoryName}
+                categoryId={categoryId}
               />
             </DialogContent>
           </Dialog>
