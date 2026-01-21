@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { DialogClose } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -15,12 +14,11 @@ import {
 } from "@/components/ui/native-select";
 import { api } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon, Upload, X } from "lucide-react";
+import { Trash, Upload, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { id } from "zod/v4/locales";
 
 export type EditFoodProps = {
   name: string;
@@ -126,6 +124,9 @@ export const EditFood = ({
       image: values.image,
       categoryId: values.categoryId,
     });
+  };
+  const handleDelete = async (id: string) => {
+    await api.delete(`foods/delete/${id}`);
   };
 
   const error = form.formState.errors;
@@ -263,7 +264,13 @@ export const EditFood = ({
             </FormItem>
           )}
         />
-        <div className="flex h-16 w-103 justify-end items-end">
+        <div className="flex h-16 w-103 justify-between items-center">
+          <Button
+            className="bg-white text-red-500 border border-red-500"
+            onClick={() => handleDelete(id)}
+          >
+            <Trash />
+          </Button>
           <Button className="h-10 w-24.25" type="submit">
             Save changes
           </Button>
