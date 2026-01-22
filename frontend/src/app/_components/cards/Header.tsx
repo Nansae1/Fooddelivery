@@ -1,8 +1,16 @@
 "use client";
 
+import { useAuth } from "@/app/context/AuthProvider";
 import { useCart } from "@/app/context/Cart-context";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import {
+  ChevronRight,
+  LocationEdit,
+  Map,
+  MapIcon,
+  ShoppingCart,
+  User,
+} from "lucide-react";
 import Link from "next/link";
 
 interface HeaderProps {
@@ -13,26 +21,48 @@ interface HeaderProps {
 export const Header = ({ totalItems }: HeaderProps) => {
   const { addToCart, getTotalItems, setIsCartOpen } = useCart();
 
+  const { user } = useAuth();
+
   return (
-    <div className="w-screen h-17 flex gap-241 items-center justify-center bg-black">
+    <div className="w-screen h-17 flex items-center justify-between bg-black px-4">
       <img src="/Logo=Horizon.png" className="h-11 w-36.5" />
       <div className="flex gap-3">
-        <Link href="/auth/signup">
-          <Button className="h-9 w-18.25 bg-white text-black rounded-full">
-            Sign up
-          </Button>
-        </Link>
-        <Link href="/auth/login">
-          <Button className="h-9 w-16.25 bg-red-500 text-white rounded-full">
-            Log In
-          </Button>
-        </Link>
+        {user ? (
+          <></>
+        ) : (
+          <Link href="/auth/signup">
+            <Button className="h-9 w-18.25 bg-white text-black rounded-full">
+              Sign up
+            </Button>
+          </Link>
+        )}
+        {user ? (
+          <></>
+        ) : (
+          <Link href="/auth/login">
+            <Button className="h-9 w-16.25 bg-red-500 text-white rounded-full">
+              Log In
+            </Button>
+          </Link>
+        )}
+        <Button
+          variant="outline"
+          className="px-4 py-1.5 h-9 bg-white rounded-full text-xs flex items-center gap-2 hover:bg-gray-50 border-none "
+        >
+          <LocationEdit className="text-red-500" />
+          <p className="text-red-500">Delivery address:</p>
+          <p className="text-[#71717A]">Add Location</p>
+          <ChevronRight className="text-[#18181B]" />
+        </Button>
         <Button
           size="icon"
-          className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md"
+          className="w-9 h-9 bg-white rounded-full hover:bg-red-600 relative transition-all shadow-md"
           onClick={() => setIsCartOpen(true)}
         >
-          <ShoppingCart className="h-4 w-4 text-white" />
+          <ShoppingCart className="h-4 w-4 text-black" />
+        </Button>
+        <Button className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md">
+          <User />
         </Button>
       </div>
     </div>
