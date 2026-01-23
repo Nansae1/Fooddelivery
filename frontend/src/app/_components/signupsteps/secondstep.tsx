@@ -14,7 +14,13 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import z, { refine } from "zod";
 
-export const SecondStep = ({ step }: { step: number }) => {
+export const SecondStep = ({
+  step,
+  onPrevStep,
+}: {
+  step: number;
+  onPrevStep: () => void;
+}) => {
   const formSchema = z
     .object({
       password: z
@@ -32,7 +38,7 @@ export const SecondStep = ({ step }: { step: number }) => {
       {
         message: "Those password did’t match, Try again",
         path: ["confirmpass"],
-      }
+      },
     );
 
   const form = useForm({
@@ -49,7 +55,9 @@ export const SecondStep = ({ step }: { step: number }) => {
   return (
     <div className="flex gap-12 justify-center items-center h-screen w-screen">
       <div className="flex flex-col gap-6">
-        <ChevronLeft className="h-9 w-9 text-black text-sm border border-[#E4E4E7]" />
+        <Button onClick={onPrevStep}>
+          <ChevronLeft className="h-9 w-9 text-black text-sm border border-[#E4E4E7]" />
+        </Button>
         <div className="flex flex-col gap-1">
           <p className="text-[24px] font-semibold">Create a strong password</p>
           <p className="text-[#71717A] text-[16px]">

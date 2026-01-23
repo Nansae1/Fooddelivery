@@ -10,10 +10,13 @@ export default function Signup() {
   const handleNextStep = () => {
     setStep(2);
   };
+  const handlePrevStep = () => {
+    setStep(1);
+  };
 
   return step === 1 ? (
     <FirstStep step={step} onNextStep={handleNextStep} />
   ) : (
-    <SecondStep step={step} />
+    <SecondStep step={step} onPrevStep={handlePrevStep} />
   );
 }
