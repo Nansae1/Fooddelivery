@@ -7,8 +7,9 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     profileImage: { type: String, required: false },
     address: { type: String, required: false },
+    role: { type: String, required: true, default: "customer" },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const UserModel = model("User", userSchema);
