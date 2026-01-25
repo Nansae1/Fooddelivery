@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/app/context/AuthProvider";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,9 +15,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import z from "zod";
+import z, { email } from "zod";
 
 export default function Login() {
+  const { login } = useAuth();
   const formSchema = z.object({
     email: z.string().regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
       message: "Invalid email. Use a format like example@email.com.",
@@ -37,6 +39,7 @@ export default function Login() {
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
+    login(email, password);
     console.log("agadg");
     console.log(values);
   }
