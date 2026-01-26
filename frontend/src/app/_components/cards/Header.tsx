@@ -21,7 +21,7 @@ interface HeaderProps {
 export const Header = ({ totalItems }: HeaderProps) => {
   const { addToCart, getTotalItems, setIsCartOpen } = useCart();
 
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <div className="w-screen h-17 flex items-center justify-between bg-black px-4">
@@ -61,9 +61,21 @@ export const Header = ({ totalItems }: HeaderProps) => {
         >
           <ShoppingCart className="h-4 w-4 text-black" />
         </Button>
-        <Button className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md">
-          <User />
-        </Button>
+        {user ? (
+          <Button
+            className="text-white flex items-center"
+            variant="outline"
+            onClick={logout}
+          >
+            Hello {user.username}!
+          </Button>
+        ) : (
+          <Link href="/auth/login">
+            <Button className="w-9 h-9 bg-red-500 rounded-full hover:bg-red-600 relative transition-all shadow-md">
+              <User />
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );

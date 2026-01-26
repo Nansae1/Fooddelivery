@@ -19,32 +19,30 @@ import z, { email } from "zod";
 
 export default function Login() {
   const { login } = useAuth();
+
   const formSchema = z.object({
-    email: z.string().regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
+    username: z.string({
       message: "Invalid email. Use a format like example@email.com.",
     }),
-    password: z
-      .string()
-      .min(8)
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/, {
-        message: "Incorrect password. Please try again.",
-      }),
+    password: z.string({
+      message: "Incorrect password. Please try again.",
+    }),
   });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    login(email, password);
+    login(values.username, values.password);
     console.log("agadg");
     console.log(values);
   }
   return (
-    <div className="h-screen w-screen flex gap-12 justify-center items-center">
+    <div className="h-screen w-screen flex justify-between px-15 items-center">
       <div className=" w-104 flex flex-col gap-6">
         <ChevronLeft className="h-9 w-9 rounded-md border border-[#E4E4E7] " />
         <div className="flex flex-col gap-1">
@@ -58,7 +56,7 @@ export default function Login() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="email"
+                name="username"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -82,6 +80,7 @@ export default function Login() {
                       <Input
                         placeholder="Password"
                         className="h-9 w-104"
+                        {...field}
                       ></Input>
                     </FormControl>
                     <FormDescription></FormDescription>
@@ -91,7 +90,10 @@ export default function Login() {
               />
               <p className="underline text-[14px]">Forgot password ?</p>
 
-              <Button className="h-9 w-104 bg-[#18181B] text-white opacity-20 rounded-md">
+              <Button
+                className="h-9 w-104 bg-[#18181B] text-white opacity-20 rounded-md"
+                type="submit"
+              >
                 Let's Go
               </Button>
             </form>

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "./context/Cart-context";
 import { AuthProvider } from "./context/AuthProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider> {children}</CartProvider>
         </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );

@@ -72,7 +72,7 @@ export const EditFood = ({
   });
 
   const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -85,7 +85,7 @@ export const EditFood = ({
         {
           method: "POST",
           body: file,
-        }
+        },
       );
 
       if (!response.ok) {
@@ -128,7 +128,6 @@ export const EditFood = ({
   const handleDelete = async (id: string) => {
     await api.delete(`foods/delete/${id}`);
   };
-
   const error = form.formState.errors;
 
   console.log("errors", error);
