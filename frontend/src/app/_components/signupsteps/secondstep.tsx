@@ -17,9 +17,19 @@ import z, { refine } from "zod";
 export const SecondStep = ({
   step,
   onPrevStep,
+  register,
+  email,
+  username,
 }: {
   step: number;
   onPrevStep: () => void;
+  register: (
+    username: string,
+    email: string,
+    password: string,
+  ) => Promise<void>;
+  email: string;
+  username: string;
 }) => {
   const formSchema = z
     .object({
@@ -50,6 +60,7 @@ export const SecondStep = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    register(username, email, values.password);
     console.log("agadg");
   }
   return (

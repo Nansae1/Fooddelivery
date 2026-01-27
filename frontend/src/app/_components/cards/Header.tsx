@@ -30,7 +30,7 @@ export const Header = ({ totalItems }: HeaderProps) => {
         {user ? (
           <></>
         ) : (
-          <Link href="/auth/signup">
+          <Link href="/auth/register">
             <Button className="h-9 w-18.25 bg-white text-black rounded-full">
               Sign up
             </Button>
@@ -62,11 +62,7 @@ export const Header = ({ totalItems }: HeaderProps) => {
           <ShoppingCart className="h-4 w-4 text-black" />
         </Button>
         {user ? (
-          <Button
-            className="text-white flex items-center"
-            variant="outline"
-            onClick={logout}
-          >
+          <Button className="text-white flex items-center" onClick={logout}>
             Hello {user.username}!
           </Button>
         ) : (

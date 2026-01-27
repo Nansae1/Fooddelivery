@@ -12,30 +12,39 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
 export const FirstStep = ({
   step,
   onNextStep,
+  setEmail,
+  setUsername,
 }: {
   step: number;
   onNextStep: () => void;
+  setEmail: Dispatch<SetStateAction<string>>;
+  setUsername: Dispatch<SetStateAction<string>>;
 }) => {
   const formSchema = z.object({
     email: z.string().regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
       message: "Invalid email. Use a format like example@email.com",
     }),
+    username: z.string(),
   });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
+      username: "",
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setEmail(values.email);
+    setUsername(values.username);
     console.log("agadg");
     onNextStep();
   }
@@ -69,6 +78,23 @@ export const FirstStep = ({
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className="h-9 w-104 border border-[#E4E4E7] text-[#71717A] rounded-md"
+                      placeholder="Enter your username"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription></FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button
               className="h-9 w-104 rounded-md transition-colors bg-black text-white disabled:opacity-20"
               type="submit"
@@ -78,6 +104,7 @@ export const FirstStep = ({
             </Button>
           </form>
         </Form>
+
         <div className="flex gap-3">
           <p className="text-[#71717A] text-[16px]">Already have an account?</p>
           <Link href="/auth/login">

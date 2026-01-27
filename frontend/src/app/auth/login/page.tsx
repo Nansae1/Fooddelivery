@@ -61,7 +61,7 @@ export default function Login() {
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Enter your email address"
+                        placeholder="Enter your username"
                         className="h-9 w-104"
                         {...field}
                       />
