@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CartHeader } from "./Cart-header";
 import { CartContent } from "./Cart-Content";
 import { useCart } from "@/app/context/Cart-context";
+import { OrderContent } from "./Order-Content";
 
 export function CartDrawer() {
   const {
@@ -22,7 +23,7 @@ export function CartDrawer() {
 
   return (
     <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-      <SheetContent className="w-full sm:max-w-lg p-0 flex flex-col bg-[#404040]">
+      <SheetContent className="w-full sm:max-w-lg p-0 flex flex-col">
         <SheetHeader className="px-6 py-4 border-b">
           <CartHeader onClose={() => setIsCartOpen(false)} />
         </SheetHeader>
@@ -58,9 +59,7 @@ export function CartDrawer() {
             value="order"
             className="flex-1 overflow-auto px-6 py-4 mt-0"
           >
-            <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-              <p>No orders yet</p>
-            </div>
+            <OrderContent />
           </TabsContent>
         </Tabs>
       </SheetContent>

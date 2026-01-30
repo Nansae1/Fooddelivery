@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,9 +11,35 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { api } from "@/lib/axios";
 import { Calendar, ChevronDown, ChevronsUpDownIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+
+type User = {
+  userId: any;
+  orderItems: [
+    {
+      foodId: any;
+      quantity: Number;
+      price: Number;
+    },
+  ];
+  status: String;
+  address: String;
+};
 
 export default function OrdersPage() {
+  // const [user, setUser] = useState<User[]>([]);
+
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const { data } = await api.get<User[]>("/orders/");
+  //     console.log("data", data);
+  //     setUser(data);
+  //   };
+
+  //   getData();
+  // });
   return (
     <div className="w-screen flex flex-col gap-6 p-8">
       <div className="w-full flex justify-end">

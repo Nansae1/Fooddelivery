@@ -3,6 +3,7 @@
 import { useAuth } from "@/app/context/AuthProvider";
 import { useCart } from "@/app/context/Cart-context";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   ChevronRight,
   LocationEdit,
@@ -12,6 +13,7 @@ import {
   User,
 } from "lucide-react";
 import Link from "next/link";
+import { Changeaddress } from "./Changeaddress";
 
 interface HeaderProps {
   totalItems?: number;
@@ -45,15 +47,23 @@ export const Header = ({ totalItems }: HeaderProps) => {
             </Button>
           </Link>
         )}
-        <Button
-          variant="outline"
-          className="px-4 py-1.5 h-9 bg-white rounded-full text-xs flex items-center gap-2 hover:bg-gray-50 border-none "
-        >
-          <LocationEdit className="text-red-500" />
-          <p className="text-red-500">Delivery address:</p>
-          <p className="text-[#71717A]">Add Location</p>
-          <ChevronRight className="text-[#18181B]" />
-        </Button>
+        <Dialog>
+          <DialogTrigger>
+            <Button
+              variant="outline"
+              className="px-4 py-1.5 h-9 bg-white rounded-full text-xs flex items-center gap-2 hover:bg-gray-50 border-none "
+            >
+              <LocationEdit className="text-red-500" />
+              <p className="text-red-500">Delivery address:</p>
+              <p className="text-[#71717A]">Add Location</p>
+              <ChevronRight className="text-[#18181B]" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <Changeaddress />
+          </DialogContent>
+        </Dialog>
+
         <Button
           size="icon"
           className="w-9 h-9 bg-white rounded-full hover:bg-red-600 relative transition-all shadow-md"

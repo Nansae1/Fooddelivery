@@ -58,7 +58,10 @@ export function CartContent({
 
       {cartItems.length > 0 && (
         <div className="p-6 border-t">
-          <Button className="w-full bg-red-500 hover:bg-red-600 text-white py-6 rounded-full text-base font-semibold">
+          <Button
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-6 rounded-full text-base font-semibold"
+            // onClick={}
+          >
             Checkout
           </Button>
         </div>

@@ -12,8 +12,9 @@ const orderSchema = new Schema(
       },
     ],
     status: { type: String, required: true, default: "pending" },
+    address: { type: String, required: true, default: "Sbd negdsen emneleg" },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const OrderModel = model("Order", orderSchema);
