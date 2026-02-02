@@ -25,13 +25,21 @@ export function CartContent({
   onRemoveFromCart,
 }: CartContentProps) {
   const ToOrder = async () => {
-    await api.post("/orders/create", {
-      orderItems: cartItems.map((item: CartItemType) => ({
-        foodId: item._id,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-    });
+    await api.post(
+      "/orders/create",
+      {
+        orderItems: cartItems.map((item: CartItemType) => ({
+          foodId: item._id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      },
+    );
   };
   return (
     <>

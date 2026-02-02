@@ -9,7 +9,7 @@ export const getUserOrder: RequestHandler = async (req, res) => {
   }
 
   const orders = await OrderModel.find({ userId })
-    .populate("foods.foodId")
+    .populate("orderItems.foodId")
     .populate("userId");
 
   res.status(200).json(orders);

@@ -46,6 +46,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
       const { user, accessToken } = data;
 
+      localStorage.setItem("accessToken", accessToken);
+
       setUser(user);
 
       if (user.role === "admin") {
@@ -54,6 +56,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         router.push("/");
       }
     } catch (error) {
+      console.log(error);
       toast.error("Login failed");
     }
   };

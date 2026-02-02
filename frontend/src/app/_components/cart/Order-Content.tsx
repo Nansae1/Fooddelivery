@@ -26,9 +26,14 @@ export function OrderContent() {
     <div>
       <div className="flex flex-col items-center justify-center py-12 text-gray-500">
         {orderedFood.map((item) => {
-          return <p key={item._id}>{item.name}</p>;
+          return (
+            <div key={item._id}>
+              <p>{item.name}</p>
+              <p>{item.price}</p>
+            </div>
+          );
         })}
-        <p>No orders yet</p>
+        {/* <p>No orders yet</p> */}
       </div>
     </div>
   );

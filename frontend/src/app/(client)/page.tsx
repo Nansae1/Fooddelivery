@@ -19,7 +19,7 @@ export default function Home() {
     };
 
     fetchCategories();
-  });
+  }, []);
 
   return (
     <div className="flex flex-col w-screen items-center justify-center bg-[#404040]">
