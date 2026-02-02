@@ -5,6 +5,15 @@ import { Package } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
+const formSchema = z.object({
+  datepicker: z
+    .date("Please select a date")
+    .refine((date) => date <= eighteenYearsAgo, {
+      message: "You must be 18 years or older.",
+    }),
+  uploadimg: z.file().optional(),
+});
+
 export function AdminSidebar() {
   const pathname = usePathname();
 
