@@ -1,8 +1,10 @@
 "use client";
 
+import { OrderContentType } from "@/app/_components/cart/Order-Content";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -12,8 +14,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { api } from "@/lib/axios";
+import { cn } from "@/lib/utils";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 import { Calendar, ChevronDown, ChevronsUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SelectStatus } from "../_components/Change-status";
 
 type User = {
   userId: any;
@@ -40,6 +45,26 @@ export default function OrdersPage() {
 
   //   getData();
   // });
+  const [orderedFood, setOrderedFood] = useState<OrderContentType[]>([]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await api.get<OrderContentType[]>("/orders", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        setOrderedFood(data);
+        console.log("Fetched Items", data);
+      } catch (error) {
+        console.log("Error fetching Items", error);
+      }
+    };
+
+    getData();
+  }, []);
+  console.log(orderedFood);
+
   return (
     <div className="w-screen flex flex-col gap-6 p-8">
       <div className="w-full flex justify-end">
@@ -81,24 +106,44 @@ export default function OrdersPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Array.from({ length: 12 }).map((_, index) => (
+            {orderedFood.map((item, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Checkbox className="h-4 w-4" />
                 </TableCell>
                 <TableCell>1</TableCell>
-                <TableCell>Test@gamil.com</TableCell>
+                <TableCell>{item.userId.username}</TableCell>
                 <TableCell className="flex items-center">
-                  2 foods <ChevronDown />
+                  {item.orderItems.length} foods <ChevronDown />
                 </TableCell>
+
                 <TableCell>2024/12/20</TableCell>
-                <TableCell>$26.97</TableCell>
                 <TableCell>
-                  2024/12/СБД, 12-р хороо, СБД нэгдсэн эмнэлэг Sbd negdse...
+                  {item.orderItems.reduce(
+                    (acc, cur) => acc + cur.price * cur.quantity,
+                    0,
+                  )}
                 </TableCell>
-                <TableCell className="bg-white text-whie flex justify-between">
-                  Pending <ChevronsUpDownIcon />
-                </TableCell>
+                <TableCell>{item.address}</TableCell>
+                <Dialog>
+                  <DialogTrigger>
+                    <TableCell
+                      className={cn(
+                        item.status === "pending" &&
+                          "bg-white text-whie flex justify-between items-center rounded-full h-8 w-23.5 border border-red-500",
+                        item.status === "cancelled" &&
+                          "bg-white text-whie flex justify-between items-center rounded-full h-8 w-23.5 border ",
+                        item.status === "completed" &&
+                          "bg-white text-whie flex justify-between items-center rounded-full h-8 w-23.5 border border-green-500",
+                      )}
+                    >
+                      {item.status} <ChevronsUpDownIcon />
+                    </TableCell>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <SelectStatus id={item._id} currentStatus={item.status} />
+                  </DialogContent>
+                </Dialog>
               </TableRow>
             ))}
           </TableBody>

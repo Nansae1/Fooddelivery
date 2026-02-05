@@ -3,10 +3,13 @@
 import { CartItem as CartItemType, Food } from "@/app/context/Cart-context";
 import { CartItem } from "./Cart-item";
 import { EmptyCart } from "./Empty-cart";
-import { DeliveryLocation } from "./Delivery-location";
 import { PaymentSummary } from "./Payment-summary";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/axios";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { error } from "console";
+import { toast } from "sonner";
 
 interface CartContentProps {
   cartItems: CartItemType[];
@@ -24,7 +27,10 @@ export function CartContent({
   onUpdateQuantity,
   onRemoveFromCart,
 }: CartContentProps) {
+  const [delivery, setDelivery] = useState("");
+
   const ToOrder = async () => {
+    if (delivery === "") return toast.error("Haygaa oruulache");
     await api.post(
       "/orders/create",
       {
@@ -33,6 +39,7 @@ export function CartContent({
           quantity: item.quantity,
           price: item.price,
         })),
+        address: delivery,
       },
       {
         headers: {
@@ -63,7 +70,14 @@ export function CartContent({
 
         {cartItems.length > 0 && (
           <>
-            <DeliveryLocation />
+            <div className="mt-6">
+              <h4 className="text-sm font-semibold mb-2">Delivery location</h4>
+              <Input
+                placeholder="Please share your complete address"
+                className="bg-white"
+                onChange={(e) => setDelivery(e.target.value)}
+              />
+            </div>
             <PaymentSummary
               subtotal={subtotal}
               shipping={shipping}
