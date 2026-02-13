@@ -52,7 +52,10 @@ export const FirstStep = ({
   return (
     <div className="flex gap-12 justify-center items-center h-screen w-screen">
       <div className="flex flex-col gap-6">
-        <ChevronLeft className="h-9 w-9 text-black text-sm border border-[#E4E4E7]" />
+        <Link href="/">
+          <ChevronLeft className="h-9 w-9 text-black text-sm border border-[#E4E4E7]" />
+        </Link>
+
         <div className="flex flex-col gap-1">
           <p className="text-[24px] font-semibold">Create your account</p>
           <p className="text-[#71717A] text-[16px]">

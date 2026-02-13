@@ -28,6 +28,7 @@
     "nodemin": "^1.0.1",
     "nodemon": "^3.1.11",
     "npm": "^11.7.0",
+    "radix-ui": "^1.4.3",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-hook-form": "^7.69.0",

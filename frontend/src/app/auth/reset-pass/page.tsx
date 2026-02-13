@@ -1,6 +1,7 @@
 "use client";
 import { useAuth } from "@/app/context/AuthProvider";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -17,14 +18,14 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import z, { email } from "zod";
 
-export default function Login() {
+export default function Reset() {
   const { login } = useAuth();
 
   const formSchema = z.object({
-    username: z.string({
+    password: z.string({
       message: "Invalid email. Use a format like example@email.com.",
     }),
-    password: z.string({
+    confirm: z.string({
       message: "Incorrect password. Please try again.",
     }),
   });
@@ -32,25 +33,23 @@ export default function Login() {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       password: "",
+      confirm: "",
     },
   });
   function onSubmit(values: z.infer<typeof formSchema>) {
-    login(values.username, values.password);
+    login(values.password, values.confirm);
     console.log("agadg");
     console.log(values);
   }
   return (
     <div className="h-screen w-screen flex justify-between px-15 items-center">
       <div className=" w-104 flex flex-col gap-6">
-        <Link href="/">
-          <ChevronLeft className="h-9 w-9 text-black text-sm border border-[#E4E4E7]" />
-        </Link>
         <div className="flex flex-col gap-1">
-          <p className="text-[24px] font-semibold">Log in </p>
+          <p className="text-[24px] font-semibold">Create new password </p>
           <p className="text-[#71717A] text-[16px]">
-            Log in to enjoy your favorite dishes.
+            Set a new password with a combination of letters and numbers for
+            better security.
           </p>
         </div>
         <div className="flex flex-col gap-4">
@@ -58,12 +57,12 @@ export default function Login() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="username"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Enter your username"
+                        placeholder="Password"
                         className="h-9 w-104"
                         {...field}
                       />
@@ -75,12 +74,12 @@ export default function Login() {
               />
               <FormField
                 control={form.control}
-                name="password"
+                name="confirm"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <Input
-                        placeholder="Password"
+                        placeholder="Confirm"
                         className="h-9 w-104"
                         {...field}
                       ></Input>
@@ -93,22 +92,16 @@ export default function Login() {
               <Link href="/auth/forgot-pass">
                 <p className="underline text-[14px]">Forgot password ?</p>
               </Link>
+              <Checkbox />
 
               <Button
                 className="h-9 w-104 bg-[#18181B] text-white opacity-20 rounded-md"
                 type="submit"
               >
-                Let's Go
+                Create password
               </Button>
             </form>
           </Form>
-        </div>
-
-        <div className="flex gap-3">
-          <p className="text-[#71717A] text-[16px]">Don’t have an account?</p>
-          <Link href="/auth/register">
-            <p className="text-[16px] text-[#2563EB]">Sign up </p>
-          </Link>
         </div>
       </div>
       <img src="/loginpage.png" className="h-225 w-210 rounded-md" />
